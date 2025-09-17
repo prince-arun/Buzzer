@@ -1,42 +1,106 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+/*==============================
+=         Global Styles         =
+==============================*/
+
+/* No more global dark theme. 
+   Specific page styles will handle their own backgrounds. */
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*==============================
+=      Join & Participant       =
+==============================*/
+
+/* These styles will apply to the Join and Participant pages, 
+   but are scoped to avoid conflicting with the new admin page. */
+
+.join-page-container, .participant-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+  background-color: #1a1a2e; /* Dark background for these pages */
+  color: #dcdcdc;
 }
 
 .card {
-  padding: 2em;
+  background: rgba(22, 33, 62, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
 }
 
-.read-the-docs {
-  color: #888;
+.card h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #e94560; /* accent-primary */
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+input[type="text"] {
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(15, 52, 96, 0.5);
+  color: #dcdcdc;
+  transition: all 0.2s ease-in-out;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #e94560;
+  box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.3);
+}
+
+.join-page-container button, .participant-page-container button {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #e94560, #c4324c);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 15px 0 rgba(233, 69, 96, 0.4);
+}
+
+.join-page-container button:hover, .participant-page-container button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px 0 rgba(233, 69, 96, 0.5);
+}
+
+.press-button {
+  font-size: 2.5rem;
+  font-weight: 800;
+  padding: 3rem 4rem;
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(45deg, #16c79a, #0f9b7a);
+  box-shadow: 0 10px 30px rgba(22, 199, 154, 0.4);
+}
+
+.press-button.clicked {
+  background: linear-gradient(45deg, #e94560, #c4324c);
+  box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+  cursor: not-allowed;
 }
