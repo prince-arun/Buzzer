@@ -46,16 +46,21 @@ We will use a single collection called `sessions`. For simplicity, we'll start w
 ```
 {
   "buttonEnabled": false,
-  "sessionLocked": false, // NEW: Prevents new participants from joining
-  "enabledTimestamp": null, // NEW: Timestamp when the button was enabled
+  "sessionLocked": false, 
+  "enabledTimestamp": null, 
   "participants": {
     "participant_id_1": {
         "name": "Alice",
-        "disabled": false // NEW: Flag to disable a participant
+        "team": "alpha",
+        "disabled": false 
     },
   },
   "clicks": {
     "participant_id_1": 1678886400123,
+  },
+  "scores": {
+      "alpha": 0,
+      "omega": 0
   }
 }
 ```
@@ -64,30 +69,33 @@ We will use a single collection called `sessions`. For simplicity, we'll start w
 
 This phase covered the setup of the project, basic routing, core feature implementation (joining, buzzing-in, admin controls), and initial styling.
 
-## 5. Phase 4: Advanced Features & UI Overhaul (Current Phase)
+## 5. Phase 4: Advanced Features & UI Overhaul (Completed)
+
+This phase covered advanced features like disabling and removing participants, locking the session, and a major UI overhaul of the admin panel.
+
+## 6. Phase 5: Team-Based Gameplay (Current Phase)
 
 ### Feature Enhancements
 
-1.  **Gamified Results:**
-    *   **Click Speed:** Instead of showing a raw timestamp, the results will display the time elapsed (e.g., "+0.254s") from the moment the button was enabled.
-    *   **Animation:** The winner will be highlighted with a more prominent animation.
-2.  **Participant Management:**
-    *   **Disable User:** The admin will have a toggle to "disable" a participant. A disabled participant cannot click the button. Their UI will reflect this disabled state.
-    *   **Complete User Removal:** The `remove` functionality will be verified to completely erase the user and their associated data from Firestore.
-3.  **Session Control:**
-    *   **Lock Session:** The admin will have a control to "lock" the session. Once locked, no new participants can join the game. The join page will display a "Session Locked" message.
-4.  **UI/UX Grand Redesign:**
-    *   **Professional Admin Panel:** The admin dashboard will be redesigned to be more structured, detailed, and visually appealing, taking inspiration from the provided screenshot. This includes better organization of controls, results, and participant lists.
-    *   **"Grandier" UI:** The entire application's aesthetic will be elevated with improved typography, color schemes, animations, and a more "gamified" feel to create a more engaging experience.
+1.  **Team Selection:**
+    *   The `JoinPage` will be updated to include team selection. Users will choose between "Team Alpha" and "Team Omega".
+2.  **Admin Panel Score Management:**
+    *   The `AdminPage` will display the scores for Team Alpha and Team Omega.
+    *   The admin will have controls (+ and - buttons) to manually adjust the scores.
+    *   Scores will be visualized using a bar chart for a quick graphical overview.
+    *   A prominent message will indicate which team is currently in the lead.
+3.  **Team-Based Results:**
+    *   The buzzer list in the admin panel will show the team of the participant who buzzed in.
 
 ### Development Steps
 
-1.  **Update Data Model:** Add `sessionLocked`, `enabledTimestamp`, and the `disabled` flag to the Firestore data model.
-2.  **Implement "Lock Session":** Add the control to the admin UI and update the `JoinPage` to check the `sessionLocked` flag.
-3.  **Implement "Disable User":** Add the toggle to the admin UI and update the `ParticipantPage` to prevent clicks if disabled.
-4.  **Enhance Results:**
-    *   Store the `enabledTimestamp` when the "Enable" button is clicked.
-    *   Modify the `AdminPage` to calculate and display the time difference for each click.
-    *   Add animations and styling to the results list.
-5.  **Redesign Admin Panel:** Re-structure the layout and styling of `AdminPage.jsx` and `App.css`.
-6.  **Refine Global Styles:** Update `App.css` and other components to create a more polished and game-like feel across the application.
+1.  **Update `JoinPage.jsx`:** Add UI for team selection and update the join logic to include the team information in Firestore.
+2.  **Update `AdminPage.jsx`:**
+    *   Fetch and display team scores.
+    *   Implement score adjustment functionality.
+    *   Integrate a chart library (e.g., `react-chartjs-2`) to visualize scores.
+    *   Display the team name in the buzzer list.
+    *   Add a UI element to show the leading team.
+3.  **Update `src/pages/admin/Admin.css`:** Add styling for the new leading team indicator.
+4.  **Update Firestore Rules:** Ensure that only admins can update the scores.
+5.  **Install Charting Library:** Run `npm install react-chartjs-2 chart.js`.

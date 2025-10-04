@@ -11,6 +11,8 @@
   --admin-primary-accent: #4a55e1;
   --admin-secondary-accent: #38b2ac;
   --admin-border-color: #e2e8f0;
+  --team-alpha-color: #ff073a;
+  --team-omega-color: #059669;
 }
 
 .admin-dashboard-container {
@@ -156,8 +158,9 @@
 ==============================*/
 .content-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 2rem;
+    margin-bottom: 2rem;
 }
 
 .content-card {
@@ -206,6 +209,16 @@
     font-weight: 600;
 }
 
+.team-cell.team-alpha {
+  font-weight: bold;
+  color: var(--team-alpha-color);
+}
+
+.team-cell.team-omega {
+  font-weight: bold;
+  color: var(--team-omega-color);
+}
+
 /* Participant list styles */
 .participant-list-item {
     display: flex;
@@ -227,6 +240,30 @@
     margin-left: 0.5rem;
     border-radius: 8px;
 }
+
+.team-badge {
+    display: inline-block;
+    padding: 0.2em 0.6em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    margin-left: 0.5rem;
+}
+
+.team-badge.team-alpha {
+    color: #fff;
+    background-color: var(--team-alpha-color);
+}
+
+.team-badge.team-omega {
+    color: #fff;
+    background-color: var(--team-omega-color);
+}
+
 .button-disable {
     background: #f59e0b;
     box-shadow: none;
@@ -248,4 +285,79 @@
 }
 .game-controls .button-secondary {
     background: var(--admin-secondary-accent);
+}
+
+
+/* Score Management */
+.score-management-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.leading-team-indicator {
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  border: 1px solid;
+}
+
+.leading-team-indicator.alpha {
+  background-color: rgba(255, 7, 58, 0.1);
+  border-color: rgba(255, 7, 58, 0.3);
+  color: var(--team-alpha-color);
+}
+
+.leading-team-indicator.omega {
+  background-color: rgba(5, 150, 105, 0.1);
+  border-color: rgba(5, 150, 105, 0.3);
+  color: var(--team-omega-color);
+}
+
+.leading-team-indicator.tie {
+  background-color: rgba(113, 128, 150, 0.1);
+  border-color: rgba(113, 128, 150, 0.3);
+  color: var(--admin-text-secondary);
+}
+
+.score-chart {
+    margin-bottom: 2rem;
+}
+
+.score-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.score-team {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.score-team h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.score-team div {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.button-score {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--admin-border-color);
+    background-color: var(--admin-bg-primary);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.button-score:hover {
+    background-color: #e2e8f0;
 }

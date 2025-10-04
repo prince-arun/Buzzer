@@ -23,7 +23,10 @@ function ParticipantPage() {
     if (buttonEnabled && !clicked && participant && !participant.disabled) {
       try {
         const sessionRef = doc(db, 'sessions', 'default-session');
-        await updateDoc(sessionRef, { [`clicks.${id}`]: serverTimestamp() });
+        await updateDoc(sessionRef, { 
+            [`clicks.${id}`]: serverTimestamp(),
+            buttonEnabled: false 
+        });
       } catch (error) {
         console.error("Error recording click: ", error);
       }
@@ -40,6 +43,7 @@ function ParticipantPage() {
     const participant = sessionState.participants?.[id];
     const buttonEnabled = sessionState.buttonEnabled || false;
     const clicked = sessionState.clicks?.[id] ? true : false;
+    const roundOver = sessionState.clicks && Object.keys(sessionState.clicks).length > 0;
 
     // 2. REMOVED STATE: Check for removal *after* loading is complete.
     // This is only true if the participants object exists, but the user's id is not in it.
@@ -59,11 +63,14 @@ function ParticipantPage() {
       return <h1>You clicked!</h1>;
     }
 
+    if (roundOver) {
+        return <h1>The button has been clicked! Waiting for next round.</h1>;
+    }
+
     // 5. ACTIVE BUTTON STATE
     if (buttonEnabled) {
-      const isButtonDisabled = clicked || participant?.disabled;
       return (
-        <button onClick={handleButtonClick} className={`press-button ${isButtonDisabled ? 'clicked' : ''}`} disabled={isButtonDisabled}>
+        <button onClick={handleButtonClick} className="press-button">
           Press Me!
         </button>
       );

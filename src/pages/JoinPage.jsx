@@ -6,29 +6,28 @@ import { nanoid } from 'nanoid';
 
 function JoinPage() {
   const [name, setName] = useState('');
+  const [team, setTeam] = useState(null); // 'alpha' or 'omega'
   const navigate = useNavigate();
 
   const handleJoin = async () => {
-    if (name.trim() !== '') {
+    if (name.trim() !== '' && team) {
       try {
         const participantId = nanoid();
         const sessionRef = doc(db, 'sessions', 'default-session');
 
-        // Use setDoc with merge to add the new participant to the participants map
         await setDoc(sessionRef, {
           participants: {
             [participantId]: {
               name: name.trim(),
+              team: team,
               disabled: false,
             },
           },
         }, { merge: true });
 
-        // Navigate to the participant page with their new ID
         navigate(`/participant/${participantId}`);
       } catch (error) {
         console.error("Error joining session: ", error);
-        // Optionally, show an error message to the user
       }
     }
   };
@@ -37,15 +36,30 @@ function JoinPage() {
     <div className="join-page-container">
       <div className="card">
         <h1>First Click</h1>
-        <p>Enter your name to join the game.</p>
+        <p>Enter your name and select your team to join.</p>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your Name"
-          onKeyPress={(e) => e.key === 'Enter' && handleJoin()}
         />
-        <button onClick={handleJoin}>Join</button>
+        <div className="team-selection-container">
+          <div
+            className={`team-card alpha ${team === 'alpha' ? 'selected' : ''}`}
+            onClick={() => setTeam('alpha')}
+          >
+            <h2>Team Alpha</h2>
+          </div>
+          <div
+            className={`team-card omega ${team === 'omega' ? 'selected' : ''}`}
+            onClick={() => setTeam('omega')}
+          >
+            <h2>Team Omega</h2>
+          </div>
+        </div>
+        <button onClick={handleJoin} disabled={!name.trim() || !team} onKeyPress={(e) => e.key === 'Enter' && handleJoin()}>
+          Join Game
+        </button>
       </div>
     </div>
   );
